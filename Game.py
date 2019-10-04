@@ -2,6 +2,7 @@ import pygame
 import time
 from sprite import Sprite
 
+SCREEN_WIDTH = 1200
 SCREEN_HEIGHT = 900
 
 pygame.init()
