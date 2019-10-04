@@ -20,17 +20,22 @@ pygame.display.set_caption("Insert_Creative_Game_Title_Here")
 
 crosshairs = Sprite("haloCrosshairs.png", 0, 0)
 crosshairs.change_size(100,80)
+orientation = 0
 
-pygame.mouse.set_cursor((8,8),(0,0),(0,0,0,0,0,0,0,0),(0,0,0,0,0,0,0,0))
+
+
+pygame.mouse.set_cursor((8,8),(0,0),(0,0,0,0,0,0,0,1),(0,0,0,0,0,0,0,0))
 
 
 gameOver = False
 while(not gameOver):
+    pygame.time.delay(200)
+    orientation += 15
     screen.fill((0,0,0))
-    
     crosshairs.x = pygame.mouse.get_pos()[0]
     crosshairs.y = pygame.mouse.get_pos()[1]
     crosshairs.draw(screen)
+    crosshairs.setDirection(orientation)
     
     
     

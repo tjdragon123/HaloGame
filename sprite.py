@@ -19,7 +19,7 @@ VERSION 1.0 -- 10/29/18 7pm
       move_towards(otherSprite, velocity)
       rotate(degreesClockwise)
       move(speed) # in the current direction
-      set_direction(degrees) #where 0-degrees is straight up
+      setDirection(degrees) #where 0-degrees is straight up
       setup_animation(images)
       goto_next_image()
 '''
@@ -32,6 +32,7 @@ class Sprite(pygame.sprite.Sprite):
         self.x = x
         self.y = y
         self.image = pygame.image.load(filename)
+        self.original = self.image
         print("This is a Sprite loading from file", filename)
         self.is_visible = True
         
@@ -63,4 +64,8 @@ class Sprite(pygame.sprite.Sprite):
         new_w = int(w * x_percent / 100)
         new_h = int(h * y_percent / 100)
         self.image = pygame.transform.scale(self.image,(new_w,new_h))
+    
+    
+    def setDirection(self, degreesClockwise):
+        self.image = pygame.transform.rotate(self.original,-degreesClockwise)
     
