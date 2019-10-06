@@ -10,6 +10,8 @@ class Weapon:
         self.image = _image
         self.firingImage = _firingImage
         self.hitImage = _hitImage
+    
+    def display(self):
 
 
 class ProjWeapon(Weapon):
