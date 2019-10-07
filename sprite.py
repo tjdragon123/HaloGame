@@ -64,6 +64,10 @@ class Sprite(pygame.sprite.Sprite):
         new_w = int(w * x_percent / 100)
         new_h = int(h * y_percent / 100)
         self.image = pygame.transform.scale(self.image,(new_w,new_h))
+        
+        ow = self.original.get_width()
+        oh = self.original.get_height()
+        self.original = pygame.transform.scale(self.original,(new_w,new_h))
     
     
     def setDirection(self, degreesClockwise):

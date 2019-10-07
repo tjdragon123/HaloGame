@@ -1,6 +1,8 @@
 import pygame
 import time
+import math
 from sprite import Sprite
+from CentSprite import CentSprite
 
 SCREEN_WIDTH = 1200
 SCREEN_HEIGHT = 900
@@ -18,9 +20,10 @@ pygame.mixer.music.play(-1)
 screen = pygame.display.set_mode( (SCREEN_WIDTH, SCREEN_HEIGHT) )
 pygame.display.set_caption("Halo 2D")
 
-crosshairs = Sprite("haloCrosshairs.png", 0, 0)
+crosshairs = CentSprite("haloCrosshairs.png", 0, 0)
 crosshairs.change_size(100,80)
-orientation = 0
+crosshairs.recenter()
+#orientation = 0
 
 
 pygame.mouse.set_cursor((8,8),(0,0),(0,0,0,0,0,0,0,1),(0,0,0,0,0,0,0,0))
@@ -32,37 +35,44 @@ level.change_size(400,400)
 pygame.mouse.set_cursor((8,8),(0,0),(0,0,0,0,0,0,0,0),(0,0,0,0,0,0,0,0))
 
 
-testPlayer = Sprite("Blue_Arrow_Up_Darker.png", (SCREEN_WIDTH/2)-30, (SCREEN_HEIGHT/2)-30)
+testPlayer = CentSprite("Blue_Arrow_Up_Darker.png", SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
 testPlayer.change_size(10,10)
+testPlayer.recenter()
 
-SPEED = 3
+
+SPEED = 0.2
+
+print(pygame.time.get_ticks())
+lastLoopTime = pygame.time.get_ticks()
 
 gameOver = False
 while(not gameOver):
-    #pygame.time.delay(200)
     #orientation += 15
     screen.fill((0,0,0))
 
     
     if(pygame.key.get_pressed()[pygame.K_w]):
-        level.y += SPEED
+        level.y += SPEED*(pygame.time.get_ticks()-lastLoopTime)
     if(pygame.key.get_pressed()[pygame.K_s]):
-        level.y -= SPEED
+        level.y -= SPEED*(pygame.time.get_ticks()-lastLoopTime)
     if(pygame.key.get_pressed()[pygame.K_a]):
-        level.x += SPEED
+        level.x += SPEED*(pygame.time.get_ticks()-lastLoopTime)
     if(pygame.key.get_pressed()[pygame.K_d]):
-        level.x -= SPEED
-    
+        level.x -= SPEED*(pygame.time.get_ticks()-lastLoopTime)
+    lastLoopTime = pygame.time.get_ticks()
     
     
     
     level.draw(screen)
     
+    crosshairs.cx = pygame.mouse.get_pos()[0]
+    crosshairs.cy = pygame.mouse.get_pos()[1]
+    crosshairs.recenter()
+    
+    testPlayer.setDirection(180-math.degrees(math.atan2(crosshairs.cx-(SCREEN_WIDTH/2), crosshairs.cy-(SCREEN_HEIGHT/2))))
+    testPlayer.recenter()
     testPlayer.draw(screen)
     
-    
-    crosshairs.x = pygame.mouse.get_pos()[0]
-    crosshairs.y = pygame.mouse.get_pos()[1]
     crosshairs.draw(screen)
     #crosshairs.setDirection(orientation)
     
@@ -77,6 +87,7 @@ while(not gameOver):
     #if :
      #   BMG_50_fires.play()
      
+    
     
     for event in pygame.event.get():
         if event.type == pygame.MOUSEBUTTONDOWN:
