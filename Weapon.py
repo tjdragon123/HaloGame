@@ -1,26 +1,36 @@
-import pygame
-import time
-from sprite import Sprite
 
-class Weapon:
-    def __init__(self, _damage, _magSize, _reserves, _image, _firingImage, _hitImage):
+class Weapon():
+    def __init__(self,_range,_damage,_csize,_speed,_reserves,_sprite,_amtype):
+        self.range = _range
         self.damage = _damage
-        self.magSize = _magSize
+        self.clipsize = _csize
+        self.amtype = _amtype
+        self.bullspeed = _speed
         self.reserves = _reserves
-        self.image = _image
-        self.firingImage = _firingImage
-        self.hitImage = _hitImage
-    
-    def display(self):
+        self.sprite = _sprite
+    def shoot(self):
+        if self.amtype == "light":
+            print("pew")
+        elif self.amtype == "projectile":
+            print ("bang")
+        else:
+            print("error")
 
+class projectileBlast():
+    def __init__(_sprite,_explosive):
+        self.sprite = _sprite
+        self.explosive = _explosive
+        self.radius = _radius
+        self.visible = _visible
 
-class ProjWeapon(Weapon):
-    def __init__(self, _damage, _magSize, _reserves, _image, _firingImage, _hitImage, projVel, projImage):
-        super().__init__(self, _damage, _magSize, _reserves, _image, _firingImage, _hitImage)
-        self.projVel = _projVel
-        self.projImage = _projImage
+rpground = projectileBlast()
+rpg = Explosive(100,100,1,15,20,20,"rpg.png",rpground)
 
+rpg.rpground.detonate()
 
-class BeamWeapon(Weapon):
-    def checkHit():
-        if 
+inventory = []
+inventory.append(rpg)
+
+print(inventory[0])
+print(inventory[0].damage)
+rpg.shoot()
