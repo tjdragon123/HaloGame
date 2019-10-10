@@ -1,3 +1,5 @@
+from sprite import Sprite
+
 class Button:
     """
     __init__() takes the name of the button file (use an image),
@@ -11,8 +13,8 @@ class Button:
     
     #returns a boolean of whether the x and y coordinates are within the button or not
     def checkInside(self, x, y):
-        return((x > self.x) and (x < (self.x + self.image.get_size())) and
-           (y > self.y) and (y < (self.y + self.image.get_size())))
+        return((x > self.image.x) and (x < (self.image.x + self.image.get_size())) and
+           (y > self.image.y) and (y < (self.image.y + self.image.get_size())))
     
     def draw(self, screen):
         self.image.draw(screen)

@@ -3,6 +3,8 @@ import time
 import math
 from sprite import Sprite
 from CentSprite import CentSprite
+from Menu import Menu
+from Button import Button
 
 SCREEN_WIDTH = 1200
 SCREEN_HEIGHT = 900
@@ -26,18 +28,21 @@ crosshairs.recenter()
 #orientation = 0
 
 
-pygame.mouse.set_cursor((8,8),(0,0),(0,0,0,0,0,0,0,1),(0,0,0,0,0,0,0,0))
+
 
 
 level = Sprite("HaloMap.jpg", -500, -500)
 level.change_size(400,400)
 
-pygame.mouse.set_cursor((8,8),(0,0),(0,0,0,0,0,0,0,0),(0,0,0,0,0,0,0,0))
+#pygame.mouse.set_cursor((8,8),(0,0),(0,0,0,0,0,0,0,0),(0,0,0,0,0,0,0,0))
 
 
 testPlayer = CentSprite("Blue_Arrow_Up_Darker.png", SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
 testPlayer.change_size(10,10)
 testPlayer.recenter()
+
+mainMenu = Menu("CEMainMenuBackground.jpg", [Button("playButton.png", 500, 500)])
+
 
 
 SPEED = 0.2
@@ -48,8 +53,20 @@ lastLoopTime = pygame.time.get_ticks()
 gameOver = False
 while(not gameOver):
     #orientation += 15
+    
+    inMainMenu = True
+    while(inMainMenu):
+        mainMenu.draw(screen)
+        pygame.display.flip()
+        for event in pygame.event.get():
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                xytuple = pygame.mouse.get_pos()
+                if(mainMenu.checkWhichInside(xytuple[0], xytuple[1]) == 0):
+                    inMainMenu = False
+    
+    
     screen.fill((0,0,0))
-
+    
     
     if(pygame.key.get_pressed()[pygame.K_w]):
         level.y += SPEED*(pygame.time.get_ticks()-lastLoopTime)
