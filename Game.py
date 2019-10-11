@@ -5,6 +5,7 @@ from sprite import Sprite
 from CentSprite import CentSprite
 from Menu import Menu
 from Button import Button
+from Crosshairs import Crosshairs
 
 SCREEN_WIDTH = 1200
 SCREEN_HEIGHT = 900
@@ -22,12 +23,13 @@ pygame.mixer.music.play(-1)
 screen = pygame.display.set_mode( (SCREEN_WIDTH, SCREEN_HEIGHT) )
 pygame.display.set_caption("Halo 2D")
 
+"""
 crosshairs = CentSprite("haloCrosshairs.png", 0, 0)
 crosshairs.change_size(100,80)
 crosshairs.recenter()
 #orientation = 0
-
-
+"""
+crosshairs = Crosshairs()
 
 
 
@@ -50,13 +52,15 @@ SPEED = 0.2
 print(pygame.time.get_ticks())
 lastLoopTime = pygame.time.get_ticks()
 
+inMainMenu = True
 gameOver = False
 while(not gameOver):
     #orientation += 15
     
-    inMainMenu = True
+    
     while(inMainMenu):
         mainMenu.draw(screen)
+        crosshairs.run(screen)
         pygame.display.flip()
         for event in pygame.event.get():
             if event.type == pygame.MOUSEBUTTONDOWN:
@@ -82,15 +86,18 @@ while(not gameOver):
     
     level.draw(screen)
     
+    """
     crosshairs.cx = pygame.mouse.get_pos()[0]
     crosshairs.cy = pygame.mouse.get_pos()[1]
     crosshairs.recenter()
+    """
+    crosshairs.run(screen)
     
-    testPlayer.setDirection(180-math.degrees(math.atan2(crosshairs.cx-(SCREEN_WIDTH/2), crosshairs.cy-(SCREEN_HEIGHT/2))))
+    testPlayer.setDirection(180-math.degrees(math.atan2(crosshairs.crosshairs.cx-(SCREEN_WIDTH/2), crosshairs.crosshairs.cy-(SCREEN_HEIGHT/2))))
     testPlayer.recenter()
     testPlayer.draw(screen)
     
-    crosshairs.draw(screen)
+    #crosshairs.draw(screen)
     #crosshairs.setDirection(orientation)
     
     
@@ -111,6 +118,8 @@ while(not gameOver):
             BMG_50_fires.play()
         if event.type == pygame.QUIT:
             gameOver = True
+        if event.type == pygame.KEYDOWN:
+            inMainMenu == True
 
 print("GAME OVER")
 pygame.quit()

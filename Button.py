@@ -13,8 +13,8 @@ class Button:
     
     #returns a boolean of whether the x and y coordinates are within the button or not
     def checkInside(self, x, y):
-        return((x > self.image.x) and (x < (self.image.x + self.image.get_size())) and
-           (y > self.image.y) and (y < (self.image.y + self.image.get_size())))
+        return((x > self.image.x) and (x < (self.image.x + self.image.image.get_size()[0])) and
+           (y > self.image.y) and (y < (self.image.y + self.image.image.get_size()[1])))
     
     def draw(self, screen):
         self.image.draw(screen)
