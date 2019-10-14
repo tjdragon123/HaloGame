@@ -43,7 +43,7 @@ testPlayer = CentSprite("Blue_Arrow_Up_Darker.png", SCREEN_WIDTH/2, SCREEN_HEIGH
 testPlayer.change_size(10,10)
 testPlayer.recenter()
 
-mainMenu = Menu("CEMainMenuBackground.jpg", [Button("playButton.png", SCREEN_WIDTH/2, SCREEN_HEIGHT/2)])
+mainMenu = Menu("CEMainMenuBackground.jpg", [Button("playButton.png", SCREEN_WIDTH/2, SCREEN_HEIGHT/2 -50), Button("quitButton.png", SCREEN_WIDTH/2, SCREEN_HEIGHT/2 + 50)])
 
 
 
@@ -58,15 +58,19 @@ while(not gameOver):
     #orientation += 15
     
     
-    while(inMainMenu):
+    while(inMainMenu and not gameOver):
         mainMenu.draw(screen)
         crosshairs.run(screen)
         pygame.display.flip()
         for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                gameOver = True
             if event.type == pygame.MOUSEBUTTONDOWN:
                 xytuple = pygame.mouse.get_pos()
                 if(mainMenu.checkWhichInside(xytuple[0], xytuple[1]) == 0):
                     inMainMenu = False
+                elif(mainMenu.checkWhichInside(xytuple[0], xytuple[1]) == 1):
+                    gameOver = True
     
     
     screen.fill((0,0,0))
