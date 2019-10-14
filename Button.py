@@ -1,4 +1,5 @@
 from sprite import Sprite
+from CentSprite import CentSprite
 
 class Button:
     """
@@ -8,8 +9,9 @@ class Button:
     Make sure your button image is cropped to exactly the size
     you want your button to be (aside from the scaling)."""
     def __init__(self, filename, _x, _y, x_scale=100, y_scale=100):
-        self.image = Sprite(filename, _x, _y)
+        self.image = CentSprite(filename, _x, _y)
         self.image.change_size(x_scale, y_scale)
+        self.image.recenter()
     
     #returns a boolean of whether the x and y coordinates are within the button or not
     def checkInside(self, x, y):

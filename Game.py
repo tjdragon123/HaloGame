@@ -36,14 +36,14 @@ crosshairs = Crosshairs()
 level = Sprite("HaloMap.jpg", -500, -500)
 level.change_size(400,400)
 
-#pygame.mouse.set_cursor((8,8),(0,0),(0,0,0,0,0,0,0,0),(0,0,0,0,0,0,0,0))
+pygame.mouse.set_cursor((8,8),(0,0),(0,0,0,0,0,0,0,0),(0,0,0,0,0,0,0,0))
 
 
 testPlayer = CentSprite("Blue_Arrow_Up_Darker.png", SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
 testPlayer.change_size(10,10)
 testPlayer.recenter()
 
-mainMenu = Menu("CEMainMenuBackground.jpg", [Button("playButton.png", 500, 500)])
+mainMenu = Menu("CEMainMenuBackground.jpg", [Button("playButton.png", SCREEN_WIDTH/2, SCREEN_HEIGHT/2)])
 
 
 
@@ -118,8 +118,8 @@ while(not gameOver):
             BMG_50_fires.play()
         if event.type == pygame.QUIT:
             gameOver = True
-        if event.type == pygame.KEYDOWN:
-            inMainMenu == True
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+            inMainMenu = True
 
 print("GAME OVER")
 pygame.quit()
