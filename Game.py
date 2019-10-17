@@ -15,7 +15,7 @@ pygame.init()
 pygame.display.init()
 
 pygame.mixer.init() #starts the sound stuff
-BMG_50_fires = pygame.mixer.Sound("M 82 Barrett 50 Cal.wav")
+BMG_50_fires = pygame.mixer.Sound("magnumFireSound.wav")
 #soundtrack = pygame.mixer.music("Halo Theme Song Original.mp3")
 pygame.mixer.music.load("Halo Theme Song Original.mp3")
 pygame.mixer.music.play(-1)
