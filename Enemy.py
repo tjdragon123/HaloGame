@@ -1,4 +1,4 @@
-import Weapon
+from Weapon import Weapon
 class Enemy():
     def __init__(self,_name,_health,_sprite,_x,_y,_vel):
         self.name = _name

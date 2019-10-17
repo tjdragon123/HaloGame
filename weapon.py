@@ -9,12 +9,18 @@ class Weapon():
         self.reserves = _reserves
         self.sprite = _sprite
     def shoot(self):
-        if self.amtype == "light":
+        if self.amtype == "hitscan":
             print("pew")
         elif self.amtype == "projectile":
             print ("bang")
         else:
             print("error")
+    
+    def melee(self):
+        if self.amtype == "melee":
+            print("whack")
+        else:
+            print(error)
 
 class projectileBlast():
     def __init__(_sprite,_explosive):

@@ -6,6 +6,8 @@ from CentSprite import CentSprite
 from Menu import Menu
 from Button import Button
 from Crosshairs import Crosshairs
+from Enemy import Enemy
+from Weapon import Weapon
 
 SCREEN_WIDTH = 1200
 SCREEN_HEIGHT = 900
@@ -39,8 +41,8 @@ level.change_size(400,400)
 pygame.mouse.set_cursor((8,8),(0,0),(0,0,0,0,0,0,0,0),(0,0,0,0,0,0,0,0))
 
 
-testPlayer = CentSprite("Blue_Arrow_Up_Darker.png", SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
-testPlayer.change_size(10,10)
+testPlayer = CentSprite("Sprites/PlayerPistol.png", SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
+testPlayer.change_size(50,50)
 testPlayer.recenter()
 
 mainMenu = Menu("CEMainMenuBackground.jpg", [Button("playButton.png", SCREEN_WIDTH/2, SCREEN_HEIGHT/2 -50), Button("quitButton.png", SCREEN_WIDTH/2, SCREEN_HEIGHT/2 + 50)])
