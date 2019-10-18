@@ -6,8 +6,8 @@ from CentSprite import CentSprite
 from Menu import Menu
 from Button import Button
 from Crosshairs import Crosshairs
-from Enemy import Enemy
-from Weapon import Weapon
+#from Enemy import Enemy
+#from Weapon import Weapon
 
 SCREEN_WIDTH = 1200
 SCREEN_HEIGHT = 900
