@@ -19,6 +19,7 @@ pygame.init()
 
 pygame.display.init()
 
+
 pygame.mixer.init() #starts the sound stuff
 
 pygame.mixer.music.load("Halo Theme Song Original.mp3")
@@ -37,13 +38,12 @@ level.change_size(150,150)
 pygame.mouse.set_cursor((8,8),(0,0),(0,0,0,0,0,0,0,0),(0,0,0,0,0,0,0,0))
 
 
-testPlayer = CentSprite("Sprites/PlayerPistol.png", SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
-testPlayer.change_size(50,50)
-testPlayer.recenter()
 player = Player()
 
 mainMenu = Menu("CEMainMenuBackground.jpg", [Button("playButton.png", SCREEN_WIDTH/2, SCREEN_HEIGHT/2 -50), Button("quitButton.png", SCREEN_WIDTH/2, SCREEN_HEIGHT/2 + 50)])
 
+pygame.font.init()
+myfont = pygame.font.SysFont('Comic Sans MS', 20)
 
 
 SPEED = 0.2
@@ -104,6 +104,13 @@ while(not gameOver):
     
     player.draw(screen, SCREEN_WIDTH/2, SCREEN_HEIGHT/2, 180-math.degrees(math.atan2(crosshairs.crosshairs.cx-(SCREEN_WIDTH/2), crosshairs.crosshairs.cy-(SCREEN_HEIGHT/2))))
     
+    
+    textsurface = myfont.render('HEALTH : '+str(player.health), False, (255, 0, 0))
+    textsurface2 = myfont.render('SHEILD : '+str(player.shields), False, (0, 130, 255))
+    textsurface3 = myfont.render('SCORE : '+str(score), False, (255, 255, 255))
+    screen.blit(textsurface,(0,0))
+    screen.blit(textsurface2,(0,25))
+    screen.blit(textsurface3,(0,50))
     #crosshairs.draw(screen)
     #crosshairs.setDirection(orientation)
     
