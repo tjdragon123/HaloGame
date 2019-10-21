@@ -6,7 +6,7 @@ class Player():
     def __init__(self):
         self.health = 100
         self.shields = 200
-        self.weapons = [Weapon(100,50,12,-1,-1,CentSprite("Sprites/PlayerPistol.png", 0, 0), 50, "hitscan")]
+        self.weapons = [Weapon(100,50,12,-1,-1,CentSprite("Sprites/PlayerPistol.png", 0, 0), 50, "hitscan", "magnumFireSound.wav")]
         self.current = self.weapons[0]
         self.lastDamaged = 0
         self.rechargeRate = 0.1 #shield recharge rate in hp per tick
@@ -26,6 +26,9 @@ class Player():
         
     def draw(self, screen, x, y, direction):
         self.current.draw(screen, x, y, direction)
+    
+    def shoot(self):
+        self.current.shoot()
         
         
     def updateShields(self, currTicks):

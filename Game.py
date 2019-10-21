@@ -18,7 +18,7 @@ pygame.init()
 pygame.display.init()
 
 pygame.mixer.init() #starts the sound stuff
-BMG_50_fires = pygame.mixer.Sound("magnumFireSound.wav")
+#BMG_50_fires = pygame.mixer.Sound("magnumFireSound.wav")
 #soundtrack = pygame.mixer.music("Halo Theme Song Original.mp3")
 pygame.mixer.music.load("Halo Theme Song Original.mp3")
 pygame.mixer.music.play(-1)
@@ -127,7 +127,7 @@ while(not gameOver):
     
     for event in pygame.event.get():
         if event.type == pygame.MOUSEBUTTONDOWN:
-            BMG_50_fires.play()
+            player.shoot()
         if event.type == pygame.QUIT:
             gameOver = True
         if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:

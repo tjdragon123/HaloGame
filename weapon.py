@@ -1,9 +1,10 @@
 from sprite import Sprite
 from CentSprite import CentSprite
+import pygame
 
 
 class Weapon():
-    def __init__(self,_range,_damage,_csize,_speed,_reserves,_sprite, spriteSize, _amtype):
+    def __init__(self,_range,_damage,_csize,_speed,_reserves,_sprite, spriteSize, _amtype, firingSoundFileName):
         self.range = _range
         self.damage = _damage
         self.clipsize = _csize
@@ -12,7 +13,11 @@ class Weapon():
         self.reserves = _reserves
         self.sprite = _sprite
         self.sprite.change_size(spriteSize, spriteSize)
+        pygame.mixer.init()
+        self.firingSound = pygame.mixer.Sound("magnumFireSound.wav")
+        
     def shoot(self):
+        self.firingSound.play()
         if self.amtype == "hitscan":
             print("pew")
         elif self.amtype == "projectile":
