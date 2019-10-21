@@ -10,6 +10,8 @@ from Player import Player
 #from Enemy import Enemy
 #from Weapon import Weapon
 
+enemies = []
+
 SCREEN_WIDTH = 1200
 SCREEN_HEIGHT = 900
 
@@ -18,26 +20,19 @@ pygame.init()
 pygame.display.init()
 
 pygame.mixer.init() #starts the sound stuff
-#BMG_50_fires = pygame.mixer.Sound("magnumFireSound.wav")
-#soundtrack = pygame.mixer.music("Halo Theme Song Original.mp3")
+
 pygame.mixer.music.load("Halo Theme Song Original.mp3")
 pygame.mixer.music.play(-1)
 
 screen = pygame.display.set_mode( (SCREEN_WIDTH, SCREEN_HEIGHT) )
 pygame.display.set_caption("Halo 2D")
 
-"""
-crosshairs = CentSprite("haloCrosshairs.png", 0, 0)
-crosshairs.change_size(100,80)
-crosshairs.recenter()
-#orientation = 0
-"""
 crosshairs = Crosshairs()
 
+score = 0
 
-
-level = Sprite("HaloMap.jpg", -500, -500)
-level.change_size(400,400)
+level = Sprite("map.png", -500, -500)
+level.change_size(150,150)
 
 pygame.mouse.set_cursor((8,8),(0,0),(0,0,0,0,0,0,0,0),(0,0,0,0,0,0,0,0))
 
