@@ -1,7 +1,7 @@
 from sprite import Sprite
 from CentSprite import CentSprite
 import pygame
-
+import math
 
 class Weapon():
     def __init__(self,_range,_damage,_csize,_speed,_reserves,_sprite, spriteSize, _amtype, firingSoundFileName):
@@ -16,10 +16,43 @@ class Weapon():
         pygame.mixer.init()
         self.firingSound = pygame.mixer.Sound("magnumFireSound.wav")
         
-    def shoot(self):
+    def shoot(self, enemies, direction, x, y, currTicks):
         self.firingSound.play()
         if self.amtype == "hitscan":
+            for enemy in enemies:
+                sizeTuple = enemy.sprite.image.get_size()
+                minDeg = 90+math.degrees(math.atan2(enemy.y - y, enemy.x - x))
+                maxDeg = 90+math.degrees(math.atan2(enemy.y + sizeTuple[1] - y, enemy.x + sizeTuple[0]-x))
+                if direction > minDeg and direction < maxDeg:
+                    enemy.damaged(self.damage, currTicks)
+                """
+                if enemy.x > x:
+                    if enemy.y < y:
+                        minDeg = 90+math.degrees(math.atan2(enemy.y - y, enemy.x - x))
+                        maxDeg = 90+math.degrees(math.atan2(enemy.y + sizeTuple[1] - y, enemy.x + sizeTuple[0]-x))
+                        if direction > minDeg and direction < maxDeg:
+                            enemy.damaged(self.damage, currTicks)
+                    else:
+                        minDeg = 90+math.degrees(math.atan2(enemy.y - y, enemy.x + sizeTuple[0] - x))
+                        maxDeg = 90+math.degrees(math.atan2(enemy.y + sizeTuple[1] - y, enemy.x - x))
+                        if direction > minDeg and direction < maxDeg:
+                            enemy.damaged(self.damage, currTicks)
+                else:
+                    if enemy.y < y:
+                        minDeg = 90+math.degrees(math.atan2(enemy.y + sizeTuple[1] - y, enemy.x - x))
+                        maxDeg = 90+math.degrees(math.atan2(enemy.y - y, enemy.x + sizeTuple[0] - x))
+                        if direction > minDeg and direction < maxDeg:
+                            enemy.damaged(self.damage, currTicks)
+                    else:
+                        minDeg = 90+math.degrees(math.atan2(enemy.y + sizeTuple[1] - y, enemy.x + sizeTuple[0] - x))
+                        maxDeg = 90+math.degrees(math.atan2(enemy.y - y, enemy.x - x))
+                        if direction > minDeg and direction < maxDeg:
+                            enemy.damaged(self.damage, currTicks)
+            """
             print("pew")
+            
+            
+            
         elif self.amtype == "projectile":
             print ("bang")
         else:

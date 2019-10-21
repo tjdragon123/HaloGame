@@ -27,8 +27,8 @@ class Player():
     def draw(self, screen, x, y, direction):
         self.current.draw(screen, x, y, direction)
     
-    def shoot(self):
-        self.current.shoot()
+    def shoot(self, enemies, direction, x, y, currTicks):
+        self.current.shoot(enemies, direction, x, y, currTicks)
         
         
     def updateShields(self, currTicks):

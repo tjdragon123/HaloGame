@@ -7,10 +7,11 @@ from Menu import Menu
 from Button import Button
 from Crosshairs import Crosshairs
 from Player import Player
-#from Enemy import Enemy
+from Enemy import Enemy
 #from Weapon import Weapon
 
 enemies = []
+enemies.append(Enemy("Sword Elite", 100, "Sprites/MeleeElite.png", 300, 300, 5))
 
 SCREEN_WIDTH = 1200
 SCREEN_HEIGHT = 900
@@ -97,6 +98,13 @@ while(not gameOver):
     crosshairs.recenter()
     """
     
+#<<<<<<< HEAD
+#=======
+    for enemy in enemies:
+        enemy.sprite.draw(screen)
+    
+    crosshairs.run(screen)
+#>>>>>>> 807a090e10c5e9a071f776a942f8febe3de077ca
     
     """
     testPlayer.setDirection(180-math.degrees(math.atan2(crosshairs.crosshairs.cx-(SCREEN_WIDTH/2), crosshairs.crosshairs.cy-(SCREEN_HEIGHT/2))))
@@ -104,7 +112,9 @@ while(not gameOver):
     testPlayer.draw(screen)
     """
     
-    player.draw(screen, SCREEN_WIDTH/2, SCREEN_HEIGHT/2, 180-math.degrees(math.atan2(crosshairs.crosshairs.cx-(SCREEN_WIDTH/2), crosshairs.crosshairs.cy-(SCREEN_HEIGHT/2))))
+    
+    direction = 90+math.degrees(math.atan2(crosshairs.crosshairs.cy-(SCREEN_HEIGHT/2), crosshairs.crosshairs.cx-(SCREEN_WIDTH/2)))
+    player.draw(screen, SCREEN_WIDTH/2, SCREEN_HEIGHT/2, direction)
     
     
     textsurface = myfont.render('HEALTH : '+str(player.health), False, (255, 0, 0))
@@ -132,7 +142,7 @@ while(not gameOver):
     
     for event in pygame.event.get():
         if event.type == pygame.MOUSEBUTTONDOWN:
-            player.shoot()
+            player.shoot(enemies, direction, SCREEN_WIDTH/2, SCREEN_HEIGHT/2, pygame.time.get_ticks())
         if event.type == pygame.QUIT:
             gameOver = True
         if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
