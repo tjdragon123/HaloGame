@@ -1,6 +1,9 @@
+from sprite import Sprite
+from CentSprite import CentSprite
+
 
 class Weapon():
-    def __init__(self,_range,_damage,_csize,_speed,_reserves,_sprite,_amtype):
+    def __init__(self,_range,_damage,_csize,_speed,_reserves,_sprite, spriteSize, _amtype):
         self.range = _range
         self.damage = _damage
         self.clipsize = _csize
@@ -8,6 +11,7 @@ class Weapon():
         self.bullspeed = _speed
         self.reserves = _reserves
         self.sprite = _sprite
+        self.sprite.change_size(spriteSize, spriteSize)
     def shoot(self):
         if self.amtype == "hitscan":
             print("pew")
@@ -21,22 +25,30 @@ class Weapon():
             print("whack")
         else:
             print(error)
+    
+    def draw(self, screen, x, y, direction):
+        self.sprite.setDirection(direction)
+        self.sprite.cx = x
+        self.sprite.cy = y
+        self.sprite.recenter()
+        self.sprite.draw(screen)
+        
 
 class projectileBlast():
-    def __init__(_sprite,_explosive):
+    def __init__(self, _sprite,_explosive):
         self.sprite = _sprite
         self.explosive = _explosive
         self.radius = _radius
         self.visible = _visible
 
-rpground = projectileBlast()
-rpg = Explosive(100,100,1,15,20,20,"rpg.png",rpground)
+#rpground = projectileBlast()
+#rpg = Explosive(100,100,1,15,20,20,"rpg.png",rpground)
 
-rpg.rpground.detonate()
+#rpg.rpground.detonate()
 
-inventory = []
-inventory.append(rpg)
+#inventory = []
+#inventory.append(rpg)
 
-print(inventory[0])
-print(inventory[0].damage)
-rpg.shoot()
+#print(inventory[0])
+#print(inventory[0].damage)
+#rpg.shoot()

@@ -1,13 +1,13 @@
-from Weapon import Weapon
-from Sprite import Sprite
+from weapon import Weapon
+from sprite import Sprite
 from CentSprite import CentSprite
 
 class Player():
     def __init__(self):
         self.health = 100
         self.shields = 200
-        self.weapons = [Weapon(100,50,12,-1,-1,CentSprite("Sprites/PlayerPistol.png"),"hitscan")]
-        self.current = weapons[0]
+        self.weapons = [Weapon(100,50,12,-1,-1,CentSprite("Sprites/PlayerPistol.png", 0, 0), 50, "hitscan")]
+        self.current = self.weapons[0]
         self.lastDamaged = 0
         self.rechargeRate = 0.1 #shield recharge rate in hp per tick
         self.rechargeCD = 5000 #cooldown time after taking damage before shields begin to recharge (measured in ticks)
@@ -23,7 +23,10 @@ class Player():
             self.health -= amtDamaged
         
         self.lastDamaged = currTicks
-        self.recharging = False
+        
+    def draw(self, screen, x, y, direction):
+        self.current.draw(screen, x, y, direction)
+        
         
     def updateShields(self, currTicks):
         if (currTicks - self.lastDamaged) > self.rechargeCD:

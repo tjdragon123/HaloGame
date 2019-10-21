@@ -1,11 +1,12 @@
 import pygame
-import time
+#import time
 import math
 from sprite import Sprite
 from CentSprite import CentSprite
 from Menu import Menu
 from Button import Button
 from Crosshairs import Crosshairs
+from Player import Player
 #from Enemy import Enemy
 #from Weapon import Weapon
 
@@ -44,6 +45,7 @@ pygame.mouse.set_cursor((8,8),(0,0),(0,0,0,0,0,0,0,0),(0,0,0,0,0,0,0,0))
 testPlayer = CentSprite("Sprites/PlayerPistol.png", SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
 testPlayer.change_size(50,50)
 testPlayer.recenter()
+player = Player()
 
 mainMenu = Menu("CEMainMenuBackground.jpg", [Button("playButton.png", SCREEN_WIDTH/2, SCREEN_HEIGHT/2 -50), Button("quitButton.png", SCREEN_WIDTH/2, SCREEN_HEIGHT/2 + 50)])
 
@@ -99,9 +101,13 @@ while(not gameOver):
     """
     crosshairs.run(screen)
     
+    """
     testPlayer.setDirection(180-math.degrees(math.atan2(crosshairs.crosshairs.cx-(SCREEN_WIDTH/2), crosshairs.crosshairs.cy-(SCREEN_HEIGHT/2))))
     testPlayer.recenter()
     testPlayer.draw(screen)
+    """
+    
+    player.draw(screen, SCREEN_WIDTH/2, SCREEN_HEIGHT/2, 180-math.degrees(math.atan2(crosshairs.crosshairs.cx-(SCREEN_WIDTH/2), crosshairs.crosshairs.cy-(SCREEN_HEIGHT/2))))
     
     #crosshairs.draw(screen)
     #crosshairs.setDirection(orientation)
