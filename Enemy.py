@@ -1,9 +1,10 @@
-from Weapon import Weapon
+from weapon import Weapon
+from sprite import Sprite
 class Enemy():
-    def __init__(self,_name,_health,_sprite,_x,_y,_vel):
+    def __init__(self,_name,_health, imageFilename,_x,_y,_vel):
         self.name = _name
         self.health = _health
-        self.sprite = _sprite
+        self.sprite = Sprite(imageFilename, _x, _y)
         self.x = _x
         self.y = _y
         self.location = (self.x,self.y)
@@ -29,7 +30,11 @@ class Enemy():
             pass
         if name == "":#elite melee guy
             self.weapon = Weapon(5,100,0,"melee",100,0,"")
-    def holder:
+    
+    def damaged(self, damage, currTicks):
+        print("ow")
+    
+    def holder(self):
         pass
-    def helder:
+    def helder(self):
         pass
