@@ -30,7 +30,6 @@ pygame.display.set_caption("Halo 2D")
 
 crosshairs = Crosshairs()
 
-score = 0
 
 level = Sprite("map.png", -500, -500)
 level.change_size(150,150)
@@ -42,9 +41,12 @@ player = Player()
 
 mainMenu = Menu("CEMainMenuBackground.jpg", [Button("playButton.png", SCREEN_WIDTH/2, SCREEN_HEIGHT/2 -50), Button("quitButton.png", SCREEN_WIDTH/2, SCREEN_HEIGHT/2 + 50)])
 
+#STAT BOARD
 pygame.font.init()
 myfont = pygame.font.SysFont('Comic Sans MS', 20)
-
+score = 0
+board = Sprite("Sprites\\Bar.png",-5,-5)
+board.change_size(28,17)
 
 SPEED = 0.2
 
@@ -94,7 +96,7 @@ while(not gameOver):
     crosshairs.cy = pygame.mouse.get_pos()[1]
     crosshairs.recenter()
     """
-    crosshairs.run(screen)
+    
     
     """
     testPlayer.setDirection(180-math.degrees(math.atan2(crosshairs.crosshairs.cx-(SCREEN_WIDTH/2), crosshairs.crosshairs.cy-(SCREEN_HEIGHT/2))))
@@ -108,13 +110,14 @@ while(not gameOver):
     textsurface = myfont.render('HEALTH : '+str(player.health), False, (255, 0, 0))
     textsurface2 = myfont.render('SHEILD : '+str(player.shields), False, (0, 130, 255))
     textsurface3 = myfont.render('SCORE : '+str(score), False, (255, 255, 255))
+    board.draw(screen)
     screen.blit(textsurface,(0,0))
     screen.blit(textsurface2,(0,25))
     screen.blit(textsurface3,(0,50))
     #crosshairs.draw(screen)
     #crosshairs.setDirection(orientation)
     
-    
+    crosshairs.run(screen)
     
     pygame.display.flip()
     
