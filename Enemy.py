@@ -1,24 +1,24 @@
 from weapon import Weapon
 from sprite import Sprite
+from CentSprite import CentSprite
 class Enemy():
-    def __init__(self,_name,_health, imageFilename,_x,_y,_vel):
+    def __init__(self,_name,_health, imageFilename, size, cx, cy, _vel):
         self.name = _name
         self.health = _health
-        self.sprite = Sprite(imageFilename, _x, _y)
-        self.x = _x
-        self.y = _y
-        self.location = (self.x,self.y)
+        self.sprite = CentSprite(imageFilename, cx, cy)
+        self.sprite.change_size(size, size)
+        self.sprite.recenter()
         self.vel = _vel
         self.weapon = None
     def follow(self,playerx,playery):
-        if self.x < playerx:
-            self.x += self.vel
-        elif self.x > playerx:
-            self.x -= self.vel
-        if self.y < playery:
-            self.y += self.vel
-        elif self.y > playery:
-            self.y -= vel
+        if self.sprite.cx < playerx:
+            self.sprite.x += self.vel
+        elif self.sprite.cx > playerx:
+            self.sprite.x -= self.vel
+        if self.sprite.cy < playery:
+            self.sprite.y += self.vel
+        elif self.sprite.cy > playery:
+            self.y -= self.vel
     def typeAssignment():
         if name == "":#jackal
             pass

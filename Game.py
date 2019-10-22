@@ -11,7 +11,7 @@ from Enemy import Enemy
 #from Weapon import Weapon
 
 enemies = []
-enemies.append(Enemy("Sword Elite", 100, "Sprites/MeleeElite.png", 300, 300, 5))
+enemies.append(Enemy("Sword Elite", 100, "Sprites/MeleeElite.png", 50, 700, 250, 5))
 
 SCREEN_WIDTH = 1200
 SCREEN_HEIGHT = 900
@@ -77,15 +77,28 @@ while(not gameOver):
     
     screen.fill((0,0,0))
     
+    currentTime = pygame.time.get_ticks()
     
     if(pygame.key.get_pressed()[pygame.K_w]):
-        level.y += SPEED*(pygame.time.get_ticks()-lastLoopTime)
+        level.y += SPEED*(currentTime-lastLoopTime)
+        for enemy in enemies:
+            enemy.sprite.y += SPEED*(currentTime-lastLoopTime)
+            
     if(pygame.key.get_pressed()[pygame.K_s]):
-        level.y -= SPEED*(pygame.time.get_ticks()-lastLoopTime)
+        level.y -= SPEED*(currentTime-lastLoopTime)
+        for enemy in enemies:
+            enemy.sprite.y -= SPEED*(currentTime-lastLoopTime)
+            
     if(pygame.key.get_pressed()[pygame.K_a]):
-        level.x += SPEED*(pygame.time.get_ticks()-lastLoopTime)
+        level.x += SPEED*(currentTime-lastLoopTime)
+        for enemy in enemies:
+            enemy.sprite.x += SPEED*(currentTime-lastLoopTime)
+            
     if(pygame.key.get_pressed()[pygame.K_d]):
-        level.x -= SPEED*(pygame.time.get_ticks()-lastLoopTime)
+        level.x -= SPEED*(currentTime-lastLoopTime)
+        for enemy in enemies:
+            enemy.sprite.x -= SPEED*(currentTime-lastLoopTime)
+    
     lastLoopTime = pygame.time.get_ticks()
     
     

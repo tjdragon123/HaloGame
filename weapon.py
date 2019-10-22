@@ -21,34 +21,35 @@ class Weapon():
         if self.amtype == "hitscan":
             for enemy in enemies:
                 sizeTuple = enemy.sprite.image.get_size()
-                minDeg = 90+math.degrees(math.atan2(enemy.y - y, enemy.x - x))
-                maxDeg = 90+math.degrees(math.atan2(enemy.y + sizeTuple[1] - y, enemy.x + sizeTuple[0]-x))
+                """
+                minDeg = 90+math.degrees(math.atan2(enemy.sprite.y - y, enemy.sprite.x - x))
+                maxDeg = 90+math.degrees(math.atan2(enemy.sprite.y + sizeTuple[1] - y, enemy.sprite.x + sizeTuple[0]-x))
                 if direction > minDeg and direction < maxDeg:
                     enemy.damaged(self.damage, currTicks)
                 """
-                if enemy.x > x:
-                    if enemy.y < y:
-                        minDeg = 90+math.degrees(math.atan2(enemy.y - y, enemy.x - x))
-                        maxDeg = 90+math.degrees(math.atan2(enemy.y + sizeTuple[1] - y, enemy.x + sizeTuple[0]-x))
+                if enemy.sprite.x > x:
+                    if enemy.sprite.y < y:
+                        minDeg = 90+math.degrees(math.atan2(enemy.sprite.y - y, enemy.sprite.x - x))
+                        maxDeg = 90+math.degrees(math.atan2(enemy.sprite.y + sizeTuple[1] - y, enemy.sprite.x + sizeTuple[0]-x))
                         if direction > minDeg and direction < maxDeg:
                             enemy.damaged(self.damage, currTicks)
                     else:
-                        minDeg = 90+math.degrees(math.atan2(enemy.y - y, enemy.x + sizeTuple[0] - x))
-                        maxDeg = 90+math.degrees(math.atan2(enemy.y + sizeTuple[1] - y, enemy.x - x))
+                        minDeg = 90+math.degrees(math.atan2(enemy.sprite.y - y, enemy.sprite.x + sizeTuple[0] - x))
+                        maxDeg = 90+math.degrees(math.atan2(enemy.sprite.y + sizeTuple[1] - y, enemy.sprite.x - x))
                         if direction > minDeg and direction < maxDeg:
                             enemy.damaged(self.damage, currTicks)
                 else:
-                    if enemy.y < y:
-                        minDeg = 90+math.degrees(math.atan2(enemy.y + sizeTuple[1] - y, enemy.x - x))
-                        maxDeg = 90+math.degrees(math.atan2(enemy.y - y, enemy.x + sizeTuple[0] - x))
+                    if enemy.sprite.y < y:
+                        minDeg = 90+math.degrees(math.atan2(enemy.sprite.y + sizeTuple[1] - y, enemy.sprite.x - x))
+                        maxDeg = 90+math.degrees(math.atan2(enemy.sprite.y - y, enemy.sprite.x + sizeTuple[0] - x))
                         if direction > minDeg and direction < maxDeg:
                             enemy.damaged(self.damage, currTicks)
                     else:
-                        minDeg = 90+math.degrees(math.atan2(enemy.y + sizeTuple[1] - y, enemy.x + sizeTuple[0] - x))
-                        maxDeg = 90+math.degrees(math.atan2(enemy.y - y, enemy.x - x))
+                        minDeg = 90+math.degrees(math.atan2(enemy.sprite.y + sizeTuple[1] - y, enemy.sprite.x + sizeTuple[0] - x))
+                        maxDeg = 90+math.degrees(math.atan2(enemy.sprite.y - y, enemy.sprite.x - x))
                         if direction > minDeg and direction < maxDeg:
                             enemy.damaged(self.damage, currTicks)
-            """
+            
             print("pew")
             
             
