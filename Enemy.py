@@ -1,5 +1,6 @@
 from weapon import Weapon
 from sprite import Sprite
+import math
 from CentSprite import CentSprite
 class Enemy():
     def __init__(self,_name,_health, imageFilename, size, cx, cy, _vel, points):
@@ -12,21 +13,16 @@ class Enemy():
         self.weapon = None
         self.points = points
     
-    def doBehavior(self, player, playerx, playery, currTime):
+    def doBehavior(self, player, playerx, playery, lastEnemyTime, currTime):
         if self.name == "Sword Elite":
-            self.follow(playerx, playery)
+            self.follow(playerx, playery, lastEnemyTime, currTime)
             if self.sprite.is_touching(player.current.sprite):
                 player.damaged(9001, currTime)
     
-    def follow(self, playerx, playery):
-        if self.sprite.cx < playerx:
-            self.sprite.cx += self.vel
-        elif self.sprite.cx > playerx:
-            self.sprite.cx -= self.vel
-        if self.sprite.cy < playery:
-            self.sprite.cy += self.vel
-        elif self.sprite.cy > playery:
-            self.sprite.cy -= self.vel
+    def follow(self, playerx, playery, lastEnemyTime, currTime):
+        angle = 180 + math.atan2((playery - self.sprite.cy), (self.sprite.cx - playerx))
+        self.sprite.cx += (currTime - lastEnemyTime)*math.cos(angle)*self.vel
+        self.sprite.cy -= (currTime - lastEnemyTime)*math.sin(angle)*self.vel
         self.sprite.recenter()
     def typeAssignment():
         if name == "":#jackal

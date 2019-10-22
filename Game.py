@@ -52,15 +52,18 @@ board.change_size(28,17)
 
 SPEED = 0.2
 
-print(pygame.time.get_ticks())
+
 lastLoopTime = pygame.time.get_ticks()
+lastEnemyTime = lastLoopTime
 
 spawnFreq = 10000
 lastSpawn = -100000
 iteration = 1
 
+postGame = True
 inMainMenu = True
 gameOver = False
+
 while(not gameOver):
 
     
@@ -87,22 +90,26 @@ while(not gameOver):
     if(pygame.key.get_pressed()[pygame.K_w]):
         level.y += SPEED*(currentTime-lastLoopTime)
         for enemy in enemies:
-            enemy.sprite.y += SPEED*(currentTime-lastLoopTime)
+            enemy.sprite.cy += SPEED*(currentTime-lastLoopTime)
+            enemy.sprite.recenter()
             
     if(pygame.key.get_pressed()[pygame.K_s]):
         level.y -= SPEED*(currentTime-lastLoopTime)
         for enemy in enemies:
-            enemy.sprite.y -= SPEED*(currentTime-lastLoopTime)
+            enemy.sprite.cy -= SPEED*(currentTime-lastLoopTime)
+            enemy.sprite.recenter()
             
     if(pygame.key.get_pressed()[pygame.K_a]):
         level.x += SPEED*(currentTime-lastLoopTime)
         for enemy in enemies:
-            enemy.sprite.x += SPEED*(currentTime-lastLoopTime)
+            enemy.sprite.cx += SPEED*(currentTime-lastLoopTime)
+            enemy.sprite.recenter()
             
     if(pygame.key.get_pressed()[pygame.K_d]):
         level.x -= SPEED*(currentTime-lastLoopTime)
         for enemy in enemies:
-            enemy.sprite.x -= SPEED*(currentTime-lastLoopTime)
+            enemy.sprite.cx -= SPEED*(currentTime-lastLoopTime)
+            enemy.sprite.recenter()
     
     lastLoopTime = pygame.time.get_ticks()
     
@@ -121,8 +128,10 @@ while(not gameOver):
             score += enemy.points
             enemies.remove(enemy)
         else:
-            enemy.doBehavior(player, SCREEN_WIDTH/2, SCREEN_HEIGHT/2, pygame.time.get_ticks())
+            enemy.doBehavior(player, SCREEN_WIDTH/2, SCREEN_HEIGHT/2, lastEnemyTime, pygame.time.get_ticks())
             enemy.sprite.draw(screen)
+    
+    lastEnemyTime = pygame.time.get_ticks()
     
     if player.health <= 0:
         gameOver = True
@@ -156,6 +165,7 @@ while(not gameOver):
             player.shoot(enemies, direction, SCREEN_WIDTH/2, SCREEN_HEIGHT/2, pygame.time.get_ticks())
         if event.type == pygame.QUIT:
             gameOver = True
+            postGame = False
         if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
             inMainMenu = True
 
@@ -163,7 +173,7 @@ gameoverFont = pygame.font.SysFont('Comic Sans MS', 100)
 gameoverSurface = gameoverFont.render('GAME OVER', False, (255, 0, 0))
 scoreFont = pygame.font.SysFont('Comic Sans MS', 50)
 scoreSurface = scoreFont.render('SCORE: ' + str(score), False, (255, 0, 0))
-postGame = True
+
 while(postGame):
     screen.fill((0,0,0))
     screen.blit(gameoverSurface,(0,0))
