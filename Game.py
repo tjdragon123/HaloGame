@@ -9,9 +9,10 @@ from Crosshairs import Crosshairs
 from Player import Player
 from Enemy import Enemy
 #from Weapon import Weapon
+from Spawner import Spawner
 
 enemies = []
-enemies.append(Enemy("Sword Elite", 400, "Sprites/MeleeElite.png", 50, 700, 250, 5, 100))
+
 
 SCREEN_WIDTH = 1200
 SCREEN_HEIGHT = 900
@@ -54,10 +55,14 @@ SPEED = 0.2
 print(pygame.time.get_ticks())
 lastLoopTime = pygame.time.get_ticks()
 
+spawnFreq = 10000
+lastSpawn = -100000
+iteration = 1
+
 inMainMenu = True
 gameOver = False
 while(not gameOver):
-    #orientation += 15
+
     
     
     while(inMainMenu and not gameOver):
@@ -104,7 +109,13 @@ while(not gameOver):
     
     
     level.draw(screen)
-
+    
+    
+    if (currentTime - lastSpawn) >= spawnFreq:
+        Spawner.spawnEnemies(enemies, iteration, SCREEN_WIDTH, SCREEN_HEIGHT)
+        iteration += 1
+        lastSpawn = currentTime
+    
     for enemy in enemies:
         if enemy.health <= 0:
             score += enemy.points
@@ -113,33 +124,30 @@ while(not gameOver):
             enemy.doBehavior(player, SCREEN_WIDTH/2, SCREEN_HEIGHT/2, pygame.time.get_ticks())
             enemy.sprite.draw(screen)
     
+    if player.health <= 0:
+        gameOver = True
+    
     crosshairs.run(screen)
     
     
     direction = 90+math.degrees(math.atan2(crosshairs.crosshairs.cy-(SCREEN_HEIGHT/2), crosshairs.crosshairs.cx-(SCREEN_WIDTH/2)))
+    print("direction: " + str(direction))
     player.draw(screen, SCREEN_WIDTH/2, SCREEN_HEIGHT/2, direction)
     player.current.firing = False
     
     textsurface = myfont.render('HEALTH : '+str(player.health), False, (255, 0, 0))
-    textsurface2 = myfont.render('SHEILD : '+str(player.shields), False, (0, 130, 255))
+    textsurface2 = myfont.render('SHIELD : '+str(player.shields), False, (0, 130, 255))
     textsurface3 = myfont.render('SCORE : '+str(score), False, (255, 255, 255))
     board.draw(screen)
     screen.blit(textsurface,(0,0))
     screen.blit(textsurface2,(0,25))
     screen.blit(textsurface3,(0,50))
-    #crosshairs.draw(screen)
-    #crosshairs.setDirection(orientation)
     
     crosshairs.run(screen)
     
     pygame.display.flip()
     
     
-    
-    
-    
-    #if :
-     #   BMG_50_fires.play()
      
     
     
@@ -150,6 +158,20 @@ while(not gameOver):
             gameOver = True
         if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
             inMainMenu = True
+
+gameoverFont = pygame.font.SysFont('Comic Sans MS', 100)
+gameoverSurface = gameoverFont.render('GAME OVER', False, (255, 0, 0))
+scoreFont = pygame.font.SysFont('Comic Sans MS', 50)
+scoreSurface = scoreFont.render('SCORE: ' + str(score), False, (255, 0, 0))
+postGame = True
+while(postGame):
+    screen.fill((0,0,0))
+    screen.blit(gameoverSurface,(0,0))
+    screen.blit(scoreSurface,(0,200))
+    pygame.display.flip()
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            postGame = False
 
 print("GAME OVER")
 pygame.quit()

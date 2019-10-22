@@ -19,14 +19,15 @@ class Enemy():
                 player.damaged(9001, currTime)
     
     def follow(self, playerx, playery):
-        if self.sprite.x < playerx:
-            self.sprite.x += self.vel
-        elif self.sprite.x > playerx:
-            self.sprite.x -= self.vel
-        if self.sprite.y < playery:
-            self.sprite.y += self.vel
-        elif self.sprite.y > playery:
-            self.sprite.y -= self.vel
+        if self.sprite.cx < playerx:
+            self.sprite.cx += self.vel
+        elif self.sprite.cx > playerx:
+            self.sprite.cx -= self.vel
+        if self.sprite.cy < playery:
+            self.sprite.cy += self.vel
+        elif self.sprite.cy > playery:
+            self.sprite.cy -= self.vel
+        self.sprite.recenter()
     def typeAssignment():
         if name == "":#jackal
             pass
