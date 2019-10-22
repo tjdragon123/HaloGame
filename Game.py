@@ -11,7 +11,7 @@ from Enemy import Enemy
 #from Weapon import Weapon
 
 enemies = []
-enemies.append(Enemy("Sword Elite", 100, "Sprites/MeleeElite.png", 50, 700, 250, 5))
+enemies.append(Enemy("Sword Elite", 400, "Sprites/MeleeElite.png", 50, 700, 250, 5, 100))
 
 SCREEN_WIDTH = 1200
 SCREEN_HEIGHT = 900
@@ -104,31 +104,21 @@ while(not gameOver):
     
     
     level.draw(screen)
-    
-    """
-    crosshairs.cx = pygame.mouse.get_pos()[0]
-    crosshairs.cy = pygame.mouse.get_pos()[1]
-    crosshairs.recenter()
-    """
-    
-#<<<<<<< HEAD
-#=======
+
     for enemy in enemies:
-        enemy.sprite.draw(screen)
+        if enemy.health <= 0:
+            score += enemy.points
+            enemies.remove(enemy)
+        else:
+            enemy.doBehavior(player, SCREEN_WIDTH/2, SCREEN_HEIGHT/2, pygame.time.get_ticks())
+            enemy.sprite.draw(screen)
     
     crosshairs.run(screen)
-#>>>>>>> 807a090e10c5e9a071f776a942f8febe3de077ca
-    
-    """
-    testPlayer.setDirection(180-math.degrees(math.atan2(crosshairs.crosshairs.cx-(SCREEN_WIDTH/2), crosshairs.crosshairs.cy-(SCREEN_HEIGHT/2))))
-    testPlayer.recenter()
-    testPlayer.draw(screen)
-    """
     
     
     direction = 90+math.degrees(math.atan2(crosshairs.crosshairs.cy-(SCREEN_HEIGHT/2), crosshairs.crosshairs.cx-(SCREEN_WIDTH/2)))
     player.draw(screen, SCREEN_WIDTH/2, SCREEN_HEIGHT/2, direction)
-    
+    player.current.firing = False
     
     textsurface = myfont.render('HEALTH : '+str(player.health), False, (255, 0, 0))
     textsurface2 = myfont.render('SHEILD : '+str(player.shields), False, (0, 130, 255))

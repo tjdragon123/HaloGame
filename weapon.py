@@ -4,7 +4,7 @@ import pygame
 import math
 
 class Weapon():
-    def __init__(self,_range,_damage,_csize,_speed,_reserves,_sprite, spriteSize, _amtype, firingSoundFileName):
+    def __init__(self,_range,_damage,_csize,_speed,_reserves,_sprite, firingSprite, spriteSize, _amtype, firingSoundFileName):
         self.range = _range
         self.damage = _damage
         self.clipsize = _csize
@@ -12,12 +12,16 @@ class Weapon():
         self.bullspeed = _speed
         self.reserves = _reserves
         self.sprite = _sprite
+        self.firingSprite = firingSprite
+        self.firingSprite.change_size(spriteSize, spriteSize)
         self.sprite.change_size(spriteSize, spriteSize)
         pygame.mixer.init()
         self.firingSound = pygame.mixer.Sound("magnumFireSound.wav")
+        self.firing = False
         
     def shoot(self, enemies, direction, x, y, currTicks):
         self.firingSound.play()
+        self.firing = True
         if self.amtype == "hitscan":
             for enemy in enemies:
                 sizeTuple = enemy.sprite.image.get_size()
@@ -66,11 +70,18 @@ class Weapon():
             print(error)
     
     def draw(self, screen, x, y, direction):
-        self.sprite.setDirection(direction)
-        self.sprite.cx = x
-        self.sprite.cy = y
-        self.sprite.recenter()
-        self.sprite.draw(screen)
+        if(self.firing):
+            self.firingSprite.setDirection(direction)
+            self.firingSprite.cx = x
+            self.firingSprite.cy = y
+            self.firingSprite.recenter()
+            self.firingSprite.draw(screen)   
+        else:
+            self.sprite.setDirection(direction)
+            self.sprite.cx = x
+            self.sprite.cy = y
+            self.sprite.recenter()
+            self.sprite.draw(screen)
         
 
 class projectileBlast():
