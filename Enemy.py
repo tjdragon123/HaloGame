@@ -16,13 +16,13 @@ class Enemy():
     def doBehavior(self, player, playerx, playery, lastEnemyTime, currTime):
         if self.name == "Sword Elite":
             self.follow(playerx, playery, lastEnemyTime, currTime)
-            if self.sprite.is_touching(player.current.sprite):
+            if math.sqrt((self.sprite.cx-playerx)**2 + (self.sprite.cy-playery)**2) <= 60:
                 player.damaged(9001, currTime)
     
     def follow(self, playerx, playery, lastEnemyTime, currTime):
-        angle = 180 + math.atan2((playery - self.sprite.cy), (self.sprite.cx - playerx))
-        self.sprite.cx += (currTime - lastEnemyTime)*math.cos(angle)*self.vel
-        self.sprite.cy -= (currTime - lastEnemyTime)*math.sin(angle)*self.vel
+        angle = 180 + math.degrees(math.atan2((playery - self.sprite.cy), (self.sprite.cx - playerx)))
+        self.sprite.cx += (currTime - lastEnemyTime)*math.cos(math.radians(angle))*self.vel
+        self.sprite.cy -= (currTime - lastEnemyTime)*math.sin(math.radians(angle))*self.vel
         self.sprite.recenter()
     def typeAssignment():
         if name == "":#jackal

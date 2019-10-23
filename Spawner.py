@@ -23,4 +23,4 @@ class Spawner:
                 y = scrW + 100
             
             
-            enemies.append(Enemy("Sword Elite", 200, "Sprites/MeleeElite.png", 50, x, y, 0.1, 100))
+            enemies.append(Enemy("Sword Elite", 200, "Sprites/MeleeElite.png", 50, x, y, 0.2, 100))
